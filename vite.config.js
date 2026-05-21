@@ -1,15 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  plugins: [react()],
-  base: '/Achu-3/',
-})
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/Achu-3/',
   plugins: [
     react(),
     VitePWA({
@@ -33,5 +28,5 @@ export default defineConfig({
         ]
       }
     })
-  ],
+  ]
 });

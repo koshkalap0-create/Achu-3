@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { X, Upload, Save, Download, Lock } from 'lucide-react';
+import { X, Upload, Download, Lock } from 'lucide-react';
 import { useSettings } from '../context/SettingsContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -39,7 +39,7 @@ export default function SettingsModal({ onClose }) {
         if (data.appName) setAppName(data.appName);
         if (data.appIcon) setAppIcon(data.appIcon);
         alert('Settings restored successfully!');
-      } catch (err) {
+      } catch {
         alert('Invalid backup file');
       }
     };

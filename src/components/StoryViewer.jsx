@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export default function StoryViewer({ mediaList, initialIndex, onClose }) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex || 0);
@@ -10,8 +10,22 @@ export default function StoryViewer({ mediaList, initialIndex, onClose }) {
   const currentMedia = mediaList[currentIndex];
   const STORY_DURATION = 5000; // 5 seconds per image
 
+  const handleNext = () => {
+    if (currentIndex < mediaList.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+    } else {
+      onClose();
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(prev => prev - 1);
+    }
+  };
+
   useEffect(() => {
-    setProgress(0);
+    const resetFrame = requestAnimationFrame(() => setProgress(0));
     let animationFrame;
     let startTime;
 
@@ -46,22 +60,12 @@ export default function StoryViewer({ mediaList, initialIndex, onClose }) {
       }
     }
 
-    return () => cancelAnimationFrame(animationFrame);
+    return () => {
+      cancelAnimationFrame(resetFrame);
+      cancelAnimationFrame(animationFrame);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, isPaused, currentMedia.type]);
-
-  const handleNext = () => {
-    if (currentIndex < mediaList.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-    } else {
-      onClose();
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(prev => prev - 1);
-    }
-  };
 
   const handleVideoTimeUpdate = () => {
     if (videoRef.current && !isPaused) {

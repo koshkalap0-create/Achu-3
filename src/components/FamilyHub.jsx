@@ -19,6 +19,7 @@ export default function FamilyHub() {
         icon: 'https://cdn-icons-png.flaticon.com/512/3159/3159614.png' // Cake icon placeholder
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [upcomingBirthdays.length]);
 
   const handlePhotoUpload = (e) => {

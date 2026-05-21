@@ -5,7 +5,8 @@ export default function FamilyTreeAnimation({ familyMembers, removeFamilyMember 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const centerX = 300;
